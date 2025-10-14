@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambito de Adeje - Шахматный клуб на юге Тенерифе</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 5px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f5f5f5" width="1200" height="600"/><g opacity="0.1"><rect x="0" y="0" width="150" height="150" fill="%23000"/><rect x="300" y="0" width="150" height="150" fill="%23000"/><rect x="600" y="0" width="150" height="150" fill="%23000"/><rect x="900" y="0" width="150" height="150" fill="%23000"/><rect x="150" y="150" width="150" height="150" fill="%23000"/><rect x="450" y="150" width="150" height="150" fill="%23000"/><rect x="750" y="150" width="150" height="150" fill="%23000"/><rect x="1050" y="150" width="150" height="150" fill="%23000"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #e5c654;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        section:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .schedule-table {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th, .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-table th {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #d4af37;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-card-content {
+            padding: 25px;
+        }
+
+        .news-date {
+            color: #d4af37;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .social-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 200px;
+            transition: transform 0.3s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .social-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .social-card a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>♔ Gambito de Adeje ♚</h1>
+                    <p data-lang="subtitle-ru">Шахматный клуб на юге Тенерифе</p>
+                    <p data-lang="subtitle-en" class="hidden">Chess Club in South Tenerife</p>
+                    <p data-lang="subtitle-es" class="hidden">Club de Ajedrez en el Sur de Tenerife</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#about" data-lang="nav-about-ru">О нас</a><a href="#about" data-lang="nav-about-en" class="hidden">About Us</a><a href="#about" data-lang="nav-about-es" class="hidden">Sobre Nosotros</a></li>
+                        <li><a href="#schedule" data-lang="nav-schedule-ru">Расписание</a><a href="#schedule" data-lang="nav-schedule-en" class="hidden">Schedule</a><a href="#schedule" data-lang="nav-schedule-es" class="hidden">Horario</a></li>
+                        <li><a href="#achievements" data-lang="nav-achievements-ru">Достижения</a><a href="#achievements" data-lang="nav-achievements-en" class="hidden">Achievements</a><a href="#achievements" data-lang="nav-achievements-es" class="hidden">Logros</a></li>
+                        <li><a href="#news" data-lang="nav-news-ru">Новости</a><a href="#news" data-lang="nav-news-en" class="hidden">News</a><a href="#news" data-lang="nav-news-es" class="hidden">Noticias</a></li>
+                        <li><a href="#contact" data-lang="nav-contact-ru">Контакты</a><a href="#contact" data-lang="nav-contact-en" class="hidden">Contact</a><a href="#contact" data-lang="nav-contact-es" class="hidden">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="setLanguage('ru')">RU</button>
+                    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="setLanguage('es')">ES</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2 data-lang="hero-title-ru">Добро пожаловать в шахматный клуб Gambito de Adeje!</h2>
+            <h2 data-lang="hero-title-en" class="hidden">Welcome to Gambito de Adeje Chess Club!</h2>
+            <h2 data-lang="hero-title-es" class="hidden">¡Bienvenidos al Club de Ajedrez Gambito de Adeje!</h2>
+            
+            <p data-lang="hero-subtitle-ru">Профессиональное обучение шахматам для детей всех уровней</p>
+            <p data-lang="hero-subtitle-en" class="hidden">Professional chess training for children of all levels</p>
+            <p data-lang="hero-subtitle-es" class="hidden">Entrenamiento profesional de ajedrez para niños de todos los niveles</p>
+            
+            <a href="#contact" class="btn" data-lang="hero-btn-ru">Записаться на занятие</a>
+            <a href="#contact" class="btn" data-lang="hero-btn-en" class="hidden">Join Our Club</a>
+            <a href="#contact" class="btn" data-lang="hero-btn-es" class="hidden">Únete al Club</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 data-lang="about-title-ru">О нас</h2>
+            <h2 data-lang="about-title-en" class="hidden">About Us</h2>
+            <h2 data-lang="about-title-es" class="hidden">Sobre Nosotros</h2>
+            
+            <div class="about-content">
+                <p data-lang="about-text-ru">Культурно-творческий центр FamilyLand (Kinderland) приглашает всех юных любителей шахмат и логических игр! В нашем клубе занятия ведут дипломированный преподаватель и мастер ФИДЕ. Это отличная возможность для детей не только научиться играть, но и развивать мышление, внимание и уверенность в себе.</p>
+                
+                <p data-lang="about-text-en" class="hidden">The FamilyLand (Kinderland) Cultural and Creative Center invites all young chess and logic game enthusiasts! In our club classes are taught by a certified teacher and FIDE master. This is a great opportunity for children not only to learn to play, but also to develop thinking, attention and self-confidence.</p>
+                
+                <p data-lang="about-text-es" class="hidden">El Centro Cultural y Creativo FamilyLand (Kinderland) invita a todos los jóvenes amantes del ajedrez y los juegos de lógica! En nuestro club las clases son impartidas por un profesor certificado y maestro FIDE. Esta es una gran oportunidad para que los niños no solo aprendan a jugar, sino también para desarrollar el pensamiento, la atención y la confianza en sí mismos.</p>
+            </div>
+
+            <div class="benefits">
+                <div class="benefit-card">
+                    <h3 data-lang="benefit1-title-ru">Что мы предлагаем</h3>
+                    <h3 data-lang="benefit1-title-en" class="hidden">What We Offer</h3>
+                    <h3 data-lang="benefit1-title-es" class="hidden">Lo Que Ofrecemos</h3>
+                    <p data-lang="benefit1-text-ru">Регулярные занятия от базовых правил до продвинутого уровня. Клубные и выездные турниры с дружеской атмосферой.</p>
+                    <p data-lang="benefit1-text-en" class="hidden">Regular classes from basic rules to advanced level. Club and away tournaments with a friendly atmosphere.</p>
+                    <p data-lang="benefit1-text-es" class="hidden">Clases regulares desde reglas básicas hasta nivel avanzado. Torneos internos y externos con ambiente amigable.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3 data-lang="benefit2-title-ru">Развитие навыков</h3>
+                    <h3 data-lang="benefit2-title-en" class="hidden">Skills Development</h3>
+                    <h3 data-lang="benefit2-title-es" class="hidden">Desarrollo de Habilidades</h3>
+                    <p data-lang="benefit2-text-ru">Шахматы развивают логическое и стратегическое мышление, учат планировать действия и анализировать последствия.</p>
+                    <p data-lang="benefit2-text-en" class="hidden">Chess develops logical and strategic thinking, teaches planning actions and analyzing consequences.</p>
+                    <p data-lang="benefit2-text-es" class="hidden">El ajedrez desarrolla el pensamiento lógico y estratégico, enseña a planificar acciones y analizar consecuencias.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3 data-lang="benefit3-title-ru">Личностный рост</h3>
+                    <h3 data-lang="benefit3-title-en" class="hidden">Personal Growth</h3>
+                    <h3 data-lang="benefit3-title-es" class="hidden">Crecimiento Personal</h3>
+                    <p data-lang="benefit3-text-ru">Дети учатся самодисциплине, концентрации и взвешенным решениям — качествам, которые пригодятся во многих сферах жизни.</p>
+                    <p data-lang="benefit3-text-en" class="hidden">Children learn self-discipline, concentration and logical thinking — qualities that will be useful in many areas of life.</p>
+                    <p data-lang="benefit3-text-es" class="hidden">Los niños aprenden autodisciplina, concentración y decisiones equilibradas: cualidades que serán útiles en muchas áreas de la vida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule">
+        <div class="container">
+            <h2 data-lang="schedule-title-ru">Расписание занятий</h2>
+            <h2 data-lang="schedule-title-en" class="hidden">Class Schedule</h2>
+            <h2 data-lang="schedule-title-es" class="hidden">Horario de Clases</h2>
+            
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-lang="schedule-day-ru">День недели</th>
+                            <th data-lang="schedule-day-en" class="hidden">Day</th>
+                            <th data-lang="schedule-day-es" class="hidden">Día</th>
+                            
+                            <th data-lang="schedule-time-ru">Время</th>
+                            <th data-lang="schedule-time-en" class="hidden">Time</th>
+                            <th data-lang="schedule-time-es" class="hidden">Hora</th>
+                            
+                            <th data-lang="schedule-group-ru">Группа</th>
+                            <th data-lang="schedule-group-en" class="hidden">Group</th>
+                            <th data-lang="schedule-group-es" class="hidden">Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-lang="schedule-wed-ru">Среда</td>
+                            <td data-lang="schedule-wed-en" class="hidden">Wednesday</td>
+                            <td data-lang="schedule-wed-es" class="hidden">Miércoles</td>
+                            <td>18:00 - 19:00</td>
+                            <td data-lang="schedule-intermediate-ru">Продвинутые шахматисты с FM А.Косовым</td>
+                            <td data-lang="schedule-intermediate-en" class="hidden">Advanced chess with FM A.Kosov</td>
+                            <td data-lang="schedule-intermediate-es" class="hidden">Ajedrez avanzado con FM A.Kosov</td>
+                        </tr>
+                        <tr>
+                            <td data-lang="schedule-fri-ru">Четверг</td>
+                            <td data-lang="schedule-fri-en" class="hidden">Thursday</td>
+                            <td data-lang="schedule-fri-es" class="hidden">Jueves</td>
+                            <td>18:00 - 19:00</td>
+                            <td data-lang="schedule-advanced-ru">Продвинутые шахматисты с К.Блохиной</td>
+                            <td data-lang="schedule-advanced-en" class="hidden">Advanced chess with K.Blokhina</td>
+                            <td data-lang="schedule-advanced-es" class="hidden">Ajedrez avanzado con K.Blokhina</td>
+                        </tr>
+                        <tr>
+                            <td data-lang="schedule-sat-ru">Суббота</td>
+                            <td data-lang="schedule-sat-en" class="hidden">Saturday</td>
+                            <td data-lang="schedule-sat-es" class="hidden">Sábado</td>
+                            <td>13:00 - 14:00</td>
+                            <td data-lang="schedule-tournament-ru">Смешанная группа с К.Блохиной</td>
+                            <td data-lang="schedule-tournament-en" class="hidden">Mixed group with K.Blokhina</td>
+                            <td data-lang="schedule-tournament-es" class="hidden">Grupo mixto con K.Blokhina</td>
+                        </tr>
+                        <tr>
+                            <td data-lang="schedule-sat-ru">Воскресенье</td>
+                            <td data-lang="schedule-sat-en" class="hidden">Sunday</td>
+                            <td data-lang="schedule-sat-es" class="hidden">Domingo</td>
+                            <td>10:00 - 12:00</td>
+                            <td data-lang="schedule-tournament-ru">Клубные турниры, два раза в месяц</td>
+                            <td data-lang="schedule-tournament-en" class="hidden">Club Tournaments, two times a month</td>
+                            <td data-lang="schedule-tournament-es" class="hidden">Torneos del Club, dos veces al mes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <div class="container">
+            <h2 data-lang="achievements-title-ru">Наши достижения и турниры</h2>
+            <h2 data-lang="achievements-title-en" class="hidden">Our Achievements and Tournaments</h2>
+            <h2 data-lang="achievements-title-es" class="hidden">Nuestros Logros y Torneos</h2>
+            
+            <div class="achievements">
+
+                <div class="achievement-card">
+                    <h3 data-lang="achievement3-title-ru">🌟 Участие в межклубных соревнованиях</h3>
+                    <h3 data-lang="achievement3-title-en" class="hidden">🌟 Participation in Inter-club Competitions</h3>
+                    <h3 data-lang="achievement3-title-es" class="hidden">🌟 Participación en Competiciones Interclub</h3>
+                    <p data-lang="achievement3-text-ru">Регулярно участвуем в турнирах с другими клубами острова, расширяя опыт наших учеников.</p>
+                    <p data-lang="achievement3-text-en" class="hidden">We regularly participate in tournaments with other clubs on the island, expanding our students' experience.</p>
+                    <p data-lang="achievement3-text-es" class="hidden">Participamos regularmente en torneos con otros clubes de la isla, ampliando la experiencia de nuestros estudiantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="container">
+            <h2 data-lang="news-title-ru">Новости клуба</h2>
+            <h2 data-lang="news-title-en" class="hidden">Club News</h2>
+            <h2 data-lang="news-title-es" class="hidden">Noticias del Club</h2>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-card-content">
+                        <p class="news-date" data-lang="news1-date-ru">Осень 2025</p>
+                        <p class="news-date" data-lang="news1-date-en" class="hidden">Autumn 2025</p>
+                        <p class="news-date" data-lang="news1-date-es" class="hidden">Otoño de 2025</p>
+                        
+                        <h3 data-lang="news1-title-ru">Открытие нового сезона!</h3>
+                        <h3 data-lang="news1-title-en" class="hidden">New Season Opening!</h3>
+                        <h3 data-lang="news1-title-es" class="hidden">¡Apertura de la Nueva Temporada!</h3>
+                        
+                        <p data-lang="news1-text-ru">Приглашаем всех желающих на открытие нового учебного сезона. Записывайтесь!</p>
+                        <p data-lang="news1-text-en" class="hidden">We invite everyone to the opening of the new academic season. Sign up now!</p>
+                        <p data-lang="news1-text-es" class="hidden">Invitamos a todos a la apertura de la nueva temporada académica. ¡Inscribirse!</p>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-card-content">
+                        <p class="news-date" data-lang="news2-date-ru">07 декабря 2025</p>
+                        <p class="news-date" data-lang="news2-date-en" class="hidden">December 7, 2025</p>
+                        <p class="news-date" data-lang="news2-date-es" class="hidden">7 de diciembre de 2025</p>
+                        
+                        <h3 data-lang="news2-title-ru">Турнир "Алиса в стране Шахмат"</h3>
+                        <h3 data-lang="news2-title-en" class="hidden">Tournament "Alice in Chessland"</h3>
+                        <h3 data-lang="news2-title-es" class="hidden">Torneo "Alicia en el país del ajedrez"</h3>
+                        
+                        <p data-lang="news2-text-ru">Объявляем о проведении зимнего турнира. Регистрация уже открыта!</p>
+                        <p data-lang="news2-text-en" class="hidden">We announce the winter tournament. Registration is now open!</p>
+                        <p data-lang="news2-text-es" class="hidden">Anunciamos el torneo de invierno. ¡La inscripción ya está abierta!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <h2 data-lang="gallery-title-ru">Галерея</h2>
+            <h2 data-lang="gallery-title-en" class="hidden">Gallery</h2>
+            <h2 data-lang="gallery-title-es" class="hidden">Galería</h2>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">♔</div>
+                <div class="gallery-item">♕</div>
+                <div class="gallery-item">♖</div>
+                <div class="gallery-item">♗</div>
+                <div class="gallery-item">♘</div>
+                <div class="gallery-item">♙</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 data-lang="contact-title-ru">Контакты</h2>
+            <h2 data-lang="contact-title-en" class="hidden">Contact</h2>
+            <h2 data-lang="contact-title-es" class="hidden">Contacto</h2>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3 data-lang="contact-phone-ru">Телефон / WhatsApp</h3>
+                    <h3 data-lang="contact-phone-en" class="hidden">Phone / WhatsApp</h3>
+                    <h3 data-lang="contact-phone-es" class="hidden">Teléfono / WhatsApp</h3>
+                    <p><a href="tel:+34622506094">+34 622 506 094</a></p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3 data-lang="contact-address-ru">Адрес</h3>
+                    <h3 data-lang="contact-address-en" class="hidden">Address</h3>
+                    <h3 data-lang="contact-address-es" class="hidden">Dirección</h3>
+                    <p>Costa Adeje, Calle la Mesana, 16<br>Tenerife</p>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d805.272780926123!2d-16.73181123043583!3d28.11858878131664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc6a971a7a32dc69%3A0xfa87431f759e55e8!2sKinderland%20Ludoteca!5e1!3m2!1sru!2sru!4v1760447556163!5m2!1sru!2sru" 
+                    width="600" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="social">
+        <div class="container">
+            <h2 data-lang="social-title-ru">Присоединяйтесь к нам</h2>
+            <h2 data-lang="social-title-en" class="hidden">Join Us</h2>
+            <h2 data-lang="social-title-es" class="hidden">Únete a Nosotros</h2>
+            
+            <div class="social-links">
+                <div class="social-card">
+                    <div class="social-icon">📘</div>
+                    <h3>Facebook</h3>
+                    <a href="https://www.facebook.com/share/g/14NNRQFkjqz/?mibextid=wwXIfr" target="_blank" data-lang="social-follow-ru">Следите за нами</a>
+                    <a href="https://www.facebook.com/share/g/14NNRQFkjqz/?mibextid=wwXIfr" target="_blank" data-lang="social-follow-en" class="hidden">Follow Us</a>
+                    <a href="https://www.facebook.com/share/g/14NNRQFkjqz/?mibextid=wwXIfr" target="_blank" data-lang="social-follow-es" class="hidden">Síguenos</a>
+                </div>
+
+                <div class="social-card">
+                    <div class="social-icon">💬</div>
+                    <h3>WhatsApp</h3>
+                    <a href="https://wa.me/34622506094" target="_blank" data-lang="social-message-ru">Написать нам</a>
+                    <a href="https://wa.me/34622506094" target="_blank" data-lang="social-message-en" class="hidden">Message Us</a>
+                    <a href="https://wa.me/34622506094" target="_blank" data-lang="social-message-es" class="hidden">Contáctanos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p data-lang="footer-ru">© 2025 Gambito de Adeje. Все права защищены. | Шахматный клуб на юге Тенерифе</p>
+            <p data-lang="footer-en" class="hidden">© 2025 Gambito de Adeje. All rights reserved. | Chess Club in South Tenerife</p>
+            <p data-lang="footer-es" class="hidden">© 2025 Gambito de Adeje. Todos los derechos reservados. | Club de Ajedrez en el Sur de Tenerife</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Hide all language elements
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show selected language elements
+            document.querySelectorAll(`[data-lang$="-${lang}"]`).forEach(el => {
+                el.classList.remove('hidden');
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
